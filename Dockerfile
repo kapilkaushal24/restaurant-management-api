@@ -5,7 +5,7 @@ FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /src
 
 # Copy solution file
-COPY ["MyRestaurant.sln", "./"]
+COPY ["RestaurantManagement.sln", "./"]
 
 # Copy project files
 COPY ["src/RestaurantManagement.Domain/RestaurantManagement.Domain.csproj", "src/RestaurantManagement.Domain/"]

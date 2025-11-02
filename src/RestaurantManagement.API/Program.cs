@@ -112,15 +112,18 @@ builder.Services.AddCors(options =>
 var app = builder.Build();
 
 // Configure the HTTP request pipeline
-if (app.Environment.IsDevelopment())
+// Enable Swagger in all environments (including Production for demo purposes)
+app.UseSwagger();
+app.UseSwaggerUI(c =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI(c =>
-    {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Restaurant Management API v1");
-        c.RoutePrefix = string.Empty; // Set Swagger UI at the app's root
-    });
-}
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Restaurant Management API v1");
+    c.RoutePrefix = string.Empty; // Set Swagger UI at the app's root
+});
+
+// Add health check endpoint
+app.MapGet("/health", () => Results.Ok(new { status = "Healthy", timestamp = DateTime.UtcNow }))
+    .WithTags("Health")
+    .WithOpenApi();
 
 // Use custom exception handling middleware
 app.UseExceptionHandlingMiddleware();

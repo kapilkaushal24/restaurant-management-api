@@ -1,0 +1,22 @@
+# Railway.app Configuration
+# https://railway.app
+
+[build]
+builder = "NIXPACKS"
+
+[deploy]
+startCommand = "cd src/RestaurantManagement.API && dotnet RestaurantManagement.API.dll"
+healthcheckPath = "/health"
+healthcheckTimeout = 100
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 10
+
+[deploy.healthcheck]
+path = "/health"
+timeout = 100
+
+# Environment variables (set these in Railway dashboard)
+# ASPNETCORE_ENVIRONMENT=Production
+# JwtSettings__Key=<your-secret-key>
+# JwtSettings__Issuer=RestaurantAPI
+# JwtSettings__Audience=RestaurantAPIUsers
